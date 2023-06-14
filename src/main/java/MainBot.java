@@ -1,15 +1,18 @@
+
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import secret.BotToken;
 
-import javax.security.auth.login.LoginException;
+import java.util.Set;
+
 
 public class MainBot {
 
-    public static void main(String[] args) throws LoginException {
+    public static Setup INSTANCE;
 
-        JDABuilder jdaBuilder = JDABuilder.createDefault(BotToken.token);
+    public static void main(String[] args) {
 
-        jdaBuilder.build();
+        INSTANCE = new Setup();
+
     }
-
 }

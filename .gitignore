@@ -39,3 +39,4 @@ build/
 
 ### Config File Discord Bot ###
 src/main/java/secret
+.idea
