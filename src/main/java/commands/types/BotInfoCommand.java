@@ -1,10 +1,11 @@
 package commands.types;
 
 import main.MainBot;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
 
+import java.awt.*;
 import java.text.ParseException;
 
 public class BotInfoCommand implements SlashCommands {
@@ -17,10 +18,32 @@ public class BotInfoCommand implements SlashCommands {
             throw new ParseException("parse error", 0);
         } else {
 
-            event.reply("The current Bot Version is: " + MainBot.INSTANCE.getVERSION())
-                    .addActionRow(Button.link("https://github.com/clawdd/DiscordBot", "Git Repo"))
-                    .queue();
+            EmbedBuilder eb = new EmbedBuilder();
+
+            eb.setTitle("Bot - Information");
+
+            eb.setColor(getColor());
+
+            eb.addField("Version", "The current Bot Version is: " + MainBot.INSTANCE.getVERSION(), true);
+            eb.addField("Activity", "The current Bot Activity is: " + MainBot.INSTANCE.getBotStatus(), false);
+            eb.setFooter("https://github.com/clawdd/DiscordBot");
+
+            event.replyEmbeds(eb.build()).queue();
+
             System.out.println("Command executed with no error: " + name);
         }
+    }
+
+    private Color getColor() {
+        if (MainBot.INSTANCE.getBotStatus().equals(OnlineStatus.ONLINE)) {
+            return Color.GREEN;
+        }
+        if (MainBot.INSTANCE.getBotStatus().equals(OnlineStatus.IDLE)) {
+            return Color.ORANGE;
+        }
+        if (MainBot.INSTANCE.getBotStatus().equals(OnlineStatus.DO_NOT_DISTURB)) {
+            return Color.RED;
+        }
+        return Color.BLACK;
     }
 }

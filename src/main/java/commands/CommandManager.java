@@ -42,23 +42,38 @@ public class CommandManager extends ListenerAdapter {
 
     private void startCommand(String com, SlashCommandInteractionEvent event) throws ParseException {
 
+
         if (MainBot.INSTANCE.getBotStatus() != OnlineStatus.ONLINE) {
-            event.reply("Bot is under surgery").queue();
-            return;
-        }
+            // # # # limited command use # # #
+            for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
 
-        for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
-
-            String commandName = entry.getKey();
-            SlashCommands command = entry.getValue();
+                String commandName = entry.getKey();
+                SlashCommands command = entry.getValue();
 
 
-            if (commandName.equals(com)) {
+                if (commandName.equals(com) && commandName.equals("bot-info")) {
 
-                command.executeCommand(event);
-                return;
+                    command.executeCommand(event);
+                    return;
+                }
+            }
+
+        } else if (MainBot.INSTANCE.getBotStatus() == OnlineStatus.ONLINE) {
+            // # # # non-limited command use # ##
+            for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
+
+                String commandName = entry.getKey();
+                SlashCommands command = entry.getValue();
+
+
+                if (commandName.equals(com)) {
+
+                    command.executeCommand(event);
+                    return;
+                }
             }
         }
-        System.out.println("Command was not found");
+
+        System.out.println("Unknown bot status");
     }
 }
