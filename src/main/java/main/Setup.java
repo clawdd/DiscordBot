@@ -42,6 +42,7 @@ public class Setup {
 
     public void updateSlashCommands() {
 
+        jda.upsertCommand("test", "testing only").setGuildOnly(true).queue();
         jda.upsertCommand("bot-info", "returns the bot information").setGuildOnly(true).queue();
         //System.out.println("Command bot-info");
         jda.upsertCommand("set-bot-status", "sets bot status")

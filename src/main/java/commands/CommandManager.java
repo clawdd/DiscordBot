@@ -3,6 +3,7 @@ package commands;
 import commands.types.BotInfoCommand;
 import commands.types.BotStatusCommand;
 import commands.types.SlashCommands;
+import commands.types.TestCommand;
 import main.MainBot;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -24,6 +25,7 @@ public class CommandManager extends ListenerAdapter {
 
         commands.put("bot-info", new BotInfoCommand());
         commands.put("set-bot-status", new BotStatusCommand());
+        commands.put("test", new TestCommand());
     }
 
     @Override
@@ -41,24 +43,6 @@ public class CommandManager extends ListenerAdapter {
 
 
     private void startCommand(String com, SlashCommandInteractionEvent event) throws ParseException {
-
-
-        if (MainBot.INSTANCE.getBotStatus() != OnlineStatus.ONLINE) {
-            // # # # limited command use # # #
-            for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
-
-                String commandName = entry.getKey();
-                SlashCommands command = entry.getValue();
-
-
-                if (commandName.equals(com) && commandName.equals("bot-info")) {
-
-                    command.executeCommand(event);
-                    return;
-                }
-            }
-
-        } else if (MainBot.INSTANCE.getBotStatus() == OnlineStatus.ONLINE) {
             // # # # non-limited command use # ##
             for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
 
@@ -72,8 +56,5 @@ public class CommandManager extends ListenerAdapter {
                     return;
                 }
             }
-        }
-
-        System.out.println("Unknown bot status");
     }
 }

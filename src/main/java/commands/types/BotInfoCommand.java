@@ -21,12 +21,12 @@ public class BotInfoCommand implements SlashCommands {
             EmbedBuilder eb = new EmbedBuilder();
 
             eb.setTitle("Bot - Information");
+            eb.setUrl("https://github.com/clawdd/DiscordBot");
 
             eb.setColor(getColor());
 
             eb.addField("Version", "The current Bot Version is: " + MainBot.INSTANCE.getVERSION(), true);
             eb.addField("Activity", "The current Bot Activity is: " + MainBot.INSTANCE.getBotStatus(), false);
-            eb.setFooter("https://github.com/clawdd/DiscordBot");
 
             event.replyEmbeds(eb.build()).queue();
 
