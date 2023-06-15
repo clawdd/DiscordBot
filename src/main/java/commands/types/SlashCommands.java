@@ -8,5 +8,5 @@ import java.text.ParseException;
 public interface SlashCommands {
     public void executeCommand(SlashCommandInteractionEvent event) throws ParseException;
 
-    void executeButtonTask(ButtonInteraction event) throws ParseException;
+
 }

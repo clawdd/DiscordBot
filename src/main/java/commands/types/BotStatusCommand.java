@@ -32,23 +32,4 @@ public class BotStatusCommand implements SlashCommands {
             }
         }
     }
-
-    @Override
-    public void executeButtonTask(ButtonInteraction event) throws ParseException {
-        System.out.println("Button pressed: " + event.getComponentId());
-        switch (event.getComponentId()) {
-            case "online" -> {
-                event.reply("Bot status set to: online").queue();
-                MainBot.INSTANCE.setOnlineStatus(OnlineStatus.ONLINE);
-            }
-            case "idle" -> {
-                event.reply("Bot status set to: idle").queue();
-                MainBot.INSTANCE.setOnlineStatus(OnlineStatus.IDLE);
-            }
-            case "donotdisturb" -> {
-                event.reply("Bot status set to: do not disturb").queue();
-                MainBot.INSTANCE.setOnlineStatus(OnlineStatus.DO_NOT_DISTURB);
-            }
-        }
-    }
 }

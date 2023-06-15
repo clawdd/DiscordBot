@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandManager extends ListenerAdapter {
 
     private ConcurrentHashMap<String, SlashCommands> commands;
-    private SlashCommands lastCommand;
 
     public CommandManager() {
 
@@ -40,28 +39,6 @@ public class CommandManager extends ListenerAdapter {
         }
     }
 
-    @Override
-    public void onButtonInteraction(ButtonInteractionEvent event) {
-
-        for (Map.Entry<String, SlashCommands> entry : commands.entrySet()) {
-
-            String commandName = entry.getKey();
-            SlashCommands command = entry.getValue();
-
-
-            if (command.getClass().equals(lastCommand.getClass())) {
-
-                try {
-                    command.executeButtonTask(event);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                return;
-            }
-        }
-
-    }
-
 
     private void startCommand(String com, SlashCommandInteractionEvent event) throws ParseException {
 
@@ -78,7 +55,6 @@ public class CommandManager extends ListenerAdapter {
 
             if (commandName.equals(com)) {
 
-                lastCommand = entry.getValue();
                 command.executeCommand(event);
                 return;
             }

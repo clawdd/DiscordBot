@@ -1,5 +1,6 @@
 package main;
 
+import buttons.ButtonManager;
 import commands.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -34,6 +35,7 @@ public class Setup {
     public void addListeners() {
 
         jda.addEventListener(new CommandManager());
+        jda.addEventListener(new ButtonManager());
 
         System.out.println("Added listeners");
     }
@@ -43,7 +45,7 @@ public class Setup {
         jda.upsertCommand("bot-info", "returns the bot information").setGuildOnly(true).queue();
         //System.out.println("Command bot-info");
         jda.upsertCommand("set-bot-status", "sets bot status")
-                .setDefaultPermissions(DefaultMemberPermissions.DISABLED)
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
                 .setGuildOnly(true)
                 .queue();
         //System.out.println("Command set-bot-status");

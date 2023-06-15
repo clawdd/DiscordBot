@@ -23,9 +23,4 @@ public class BotInfoCommand implements SlashCommands {
             System.out.println("Command executed with no error: " + name);
         }
     }
-
-    @Override
-    public void executeButtonTask(ButtonInteraction event) throws ParseException {
-
-    }
 }
