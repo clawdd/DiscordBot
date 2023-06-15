@@ -1,9 +1,4 @@
-
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.requests.GatewayIntent;
-import secret.BotToken;
-
-import java.util.Set;
+package main;
 
 
 public class MainBot {
