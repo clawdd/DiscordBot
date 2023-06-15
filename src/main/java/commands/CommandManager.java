@@ -1,9 +1,6 @@
 package commands;
 
-import commands.types.BotInfoCommand;
-import commands.types.BotStatusCommand;
-import commands.types.SlashCommands;
-import commands.types.TestCommand;
+import commands.types.*;
 import main.MainBot;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -25,6 +22,7 @@ public class CommandManager extends ListenerAdapter {
 
         commands.put("bot-info", new BotInfoCommand());
         commands.put("set-bot-status", new BotStatusCommand());
+        commands.put("command-info", new CommandInfoCommand());
         commands.put("test", new TestCommand());
     }
 

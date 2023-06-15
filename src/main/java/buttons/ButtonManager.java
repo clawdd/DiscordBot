@@ -1,8 +1,6 @@
 package buttons;
 
-import buttons.types.StatusButton;
-import main.MainBot;
-import net.dv8tion.jda.api.OnlineStatus;
+import buttons.types.Buttons;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -10,10 +8,10 @@ import java.text.ParseException;
 
 public class ButtonManager extends ListenerAdapter {
 
-    StatusButton buttons;
+    Buttons buttons;
 
     public ButtonManager () {
-        this.buttons = new StatusButton();
+        this.buttons = new Buttons();
     }
 
     @Override

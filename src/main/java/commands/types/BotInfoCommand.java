@@ -4,6 +4,7 @@ import main.MainBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import secret.BotStrings;
 
 import java.awt.*;
 import java.text.ParseException;
@@ -25,8 +26,9 @@ public class BotInfoCommand implements SlashCommands {
 
             eb.setColor(getColor());
 
-            eb.addField("Version", "The current Bot Version is: " + MainBot.INSTANCE.getVERSION(), true);
-            eb.addField("Activity", "The current Bot Activity is: " + MainBot.INSTANCE.getBotStatus(), false);
+            eb.addField("General", BotStrings.generalInfo, false);
+            eb.addField("Version", "Bot Version is: " + "**" + MainBot.INSTANCE.getVERSION() + "**", true);
+            eb.addField("Activity", "Bot Activity is: " + "**" + MainBot.INSTANCE.getBotStatus() + "**", true);
 
             event.replyEmbeds(eb.build()).queue();
 

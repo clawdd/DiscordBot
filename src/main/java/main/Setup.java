@@ -9,19 +9,17 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import secret.BotToken;
-
-import java.awt.*;
+import secret.BotStrings;
 
 public class Setup {
 
-    private final String VERSION = "Test_0.1";
+    private final String VERSION = "Test_1.1";
     private final JDA jda;
 
     public Setup() {
 
         MainBot.INSTANCE = this;
-        jda = JDABuilder.create(BotToken.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
+        jda = JDABuilder.create(BotStrings.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
 
         jda.getPresence().setActivity(Activity.playing("in Version: " + VERSION));
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
@@ -42,13 +40,16 @@ public class Setup {
 
     public void updateSlashCommands() {
 
-        jda.upsertCommand("test", "testing only").setGuildOnly(true).queue();
-        jda.upsertCommand("bot-info", "returns the bot information").setGuildOnly(true).queue();
+        jda.upsertCommand("test", "testing only")
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
+                .setGuildOnly(true).queue();
+        jda.upsertCommand("bot-info", "all bot information you need").setGuildOnly(true).queue();
         //System.out.println("Command bot-info");
         jda.upsertCommand("set-bot-status", "sets bot status")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
                 .setGuildOnly(true)
                 .queue();
+        jda.upsertCommand("command-info", "all command information you need").setGuildOnly(true).queue();
         //System.out.println("Command set-bot-status");
 
         System.out.println("Updated Commands");
