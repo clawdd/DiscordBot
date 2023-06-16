@@ -41,9 +41,8 @@ public class Setup {
     public void updateSlashCommands() {
 
         jda.upsertCommand("test", "testing only")
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
-                .setGuildOnly(true).queue();
-        jda.upsertCommand("bot-info", "all bot information you need").setGuildOnly(true).queue();
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)).queue();
+        jda.upsertCommand("bot-info", "all bot information you need").queue();
         //System.out.println("Command bot-info");
         jda.upsertCommand("set-bot-status", "sets bot status")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
@@ -54,7 +53,9 @@ public class Setup {
 
         System.out.println("Updated Commands");
     }
-
+    public void shutDown() {
+        jda.shutdown();
+    }
     public String getVERSION() {
         return VERSION;
     }

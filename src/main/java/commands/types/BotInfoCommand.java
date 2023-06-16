@@ -8,6 +8,10 @@ import secret.BotStrings;
 
 import java.awt.*;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 
 public class BotInfoCommand implements SlashCommands {
 
@@ -21,19 +25,27 @@ public class BotInfoCommand implements SlashCommands {
 
             EmbedBuilder eb = new EmbedBuilder();
 
-            eb.setTitle("Bot - Information");
-            eb.setUrl("https://github.com/clawdd/DiscordBot");
+            eb.setTitle("Bot - Information", "https://github.com/clawdd/DiscordBot");
 
             eb.setColor(getColor());
 
             eb.addField("General", BotStrings.generalInfo, false);
+            eb.addBlankField(false);
             eb.addField("Version", "Bot Version is: " + "**" + MainBot.INSTANCE.getVERSION() + "**", true);
             eb.addField("Activity", "Bot Activity is: " + "**" + MainBot.INSTANCE.getBotStatus() + "**", true);
+            eb.addBlankField(false);
+
+            String formattedDateTime = getTimeStamp();
+            eb.setFooter(formattedDateTime);
 
             event.replyEmbeds(eb.build()).queue();
 
             System.out.println("Command executed with no error: " + name);
         }
+    }
+
+    private static String getTimeStamp() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
 
     private Color getColor() {
