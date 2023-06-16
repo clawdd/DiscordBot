@@ -29,6 +29,7 @@ public class MainBot {
                         if (INSTANCE != null) {
                             INSTANCE.setOnlineStatus(OnlineStatus.OFFLINE);
                             INSTANCE.shutDown();
+                            SQLLite.disconnectFromDataBase();
                             System.out.println("Bot shutdown");
                         }
                     }

@@ -18,6 +18,8 @@ public class Setup {
 
     public Setup() {
 
+        SQLLite.connectToDataBase();
+
         MainBot.INSTANCE = this;
         jda = JDABuilder.create(BotStrings.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
 
