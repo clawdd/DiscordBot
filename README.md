@@ -7,4 +7,4 @@
   - get command info with "/command-info"
 
 ### features in work:
-  - adding sql database
+  - adding a sql database
