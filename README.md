@@ -4,6 +4,7 @@
 ### current bot features:
   - insight into bot information with "/bot-info"
   - setting bot satus with "/set-bot-status" : for dynamic command usage
+  - get command info with "/command-info"
 
 ### features in work:
-  - insight into command information with "/command-info"
+  - adding a sql database
