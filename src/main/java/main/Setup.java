@@ -8,17 +8,23 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import secret.BotStrings;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import static secret.BotStrings.jdbcUrl;
+import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_1.1";
+    private final String VERSION = "Test_2.0";
+    private Connection connection;
     private final JDA jda;
 
     public Setup() {
-
-        SQLLite.connectToDataBase();
 
         MainBot.INSTANCE = this;
         jda = JDABuilder.create(BotStrings.token, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
@@ -28,6 +34,7 @@ public class Setup {
 
         addListeners();
         updateSlashCommands();
+        establishSQLConnection();
 
         System.out.println("# # # Bot stared correctly # # #");
     }
@@ -50,11 +57,36 @@ public class Setup {
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
                 .setGuildOnly(true)
                 .queue();
-        jda.upsertCommand("command-info", "all command information you need").setGuildOnly(true).queue();
+        jda.upsertCommand("command-info", "all command information you need").queue();
+        jda.upsertCommand("set-reminder", "remind urself to do your stuff")
+                .addOption(OptionType.STRING, "class", "Class name", true)
+                .addOption(OptionType.STRING, "assignment_type", "Assignment type", true)
+                .addOption(OptionType.INTEGER, "day", "Day", true)
+                .addOption(OptionType.INTEGER, "month", "Month", true)
+                .addOption(OptionType.INTEGER, "year", "Year", true)
+                .addOption(OptionType.INTEGER, "hour", "Hour", true)
+                .addOption(OptionType.INTEGER, "minute", "Minute", true)
+                .queue();
+        jda.upsertCommand("get-closest-assignment", "watch out its close!").queue();
         //System.out.println("Command set-bot-status");
 
         System.out.println("Updated Commands");
     }
+
+    public void establishSQLConnection() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(jdbcUrl, username, "");
+            System.out.println("SQL connection established successfully.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load MySQL JDBC driver.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Failed to establish SQL connection.");
+        }
+    }
+
     public void shutDown() {
         jda.shutdown();
     }
@@ -67,6 +99,10 @@ public class Setup {
 
     public OnlineStatus getBotStatus () {
         return jda.getPresence().getStatus();
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public void setOnlineStatus (OnlineStatus onlineStatus) {

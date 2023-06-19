@@ -21,11 +21,15 @@ public class Buttons implements Button{
 
             handleStatusButtons(event);
         } else if (MainBot.INSTANCE.getBotStatus().equals(OnlineStatus.ONLINE)) {
-
+            handleRestirctedButtons(event);
         }
     }
 
-    private static void handleStatusButtons(ButtonInteractionEvent event) throws ParseException {
+    private void handleRestirctedButtons(ButtonInteractionEvent event) {
+        // TODO
+    }
+
+    private void handleStatusButtons(ButtonInteractionEvent event) throws ParseException {
         switch (event.getComponentId()) {
             case "online" -> {
                 MainBot.INSTANCE.setOnlineStatus(OnlineStatus.ONLINE);
@@ -38,6 +42,8 @@ public class Buttons implements Button{
                 event.replyEmbeds(eb.build())
                         .setEphemeral(true)
                         .queue();
+
+                System.out.println("Bot status set to: " + MainBot.INSTANCE.getBotStatus());
             }
             case "idle" -> {
                 MainBot.INSTANCE.setOnlineStatus(OnlineStatus.IDLE);
@@ -50,6 +56,8 @@ public class Buttons implements Button{
                 event.replyEmbeds(eb.build())
                         .setEphemeral(true)
                         .queue();
+
+                System.out.println("Bot status set to: " + MainBot.INSTANCE.getBotStatus());
             }
             case "donotdisturb" -> {
                 MainBot.INSTANCE.setOnlineStatus(OnlineStatus.DO_NOT_DISTURB);
@@ -61,6 +69,8 @@ public class Buttons implements Button{
                 event.replyEmbeds(eb.build())
                         .setEphemeral(true)
                         .queue();
+
+                System.out.println("Bot status set to: " + MainBot.INSTANCE.getBotStatus());
             }
             default ->
                 throw new ParseException("Button not found", 0);

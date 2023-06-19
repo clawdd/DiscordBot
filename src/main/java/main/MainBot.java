@@ -7,6 +7,9 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class MainBot {
 
@@ -28,13 +31,16 @@ public class MainBot {
                     if (line.equalsIgnoreCase("exit")) {
                         if (INSTANCE != null) {
                             INSTANCE.setOnlineStatus(OnlineStatus.OFFLINE);
+
+                            INSTANCE.getConnection().close();
+                            System.out.println("SQL connection closed");
+
                             INSTANCE.shutDown();
-                            SQLLite.disconnectFromDataBase();
                             System.out.println("Bot shutdown");
                         }
                     }
                 }
-            }catch (IOException e){
+            }catch (SQLException | IOException e){
                 e.printStackTrace();
             }
         }).start();
