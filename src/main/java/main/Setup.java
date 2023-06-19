@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_2.0";
+    private final String VERSION = "Test_2.1";
     private Connection connection;
     private final JDA jda;
 
@@ -52,7 +52,6 @@ public class Setup {
         jda.upsertCommand("test", "testing only")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)).queue();
         jda.upsertCommand("bot-info", "all bot information you need").queue();
-        //System.out.println("Command bot-info");
         jda.upsertCommand("set-bot-status", "sets bot status")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
                 .setGuildOnly(true)
@@ -68,7 +67,10 @@ public class Setup {
                 .addOption(OptionType.INTEGER, "minute", "Minute", true)
                 .queue();
         jda.upsertCommand("get-closest-assignment", "watch out its close!").queue();
-        //System.out.println("Command set-bot-status");
+        jda.upsertCommand("clean-up-reminder", "deletes all dates in the past")
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
+                .setGuildOnly(true)
+                .queue();
 
         System.out.println("Updated Commands");
     }

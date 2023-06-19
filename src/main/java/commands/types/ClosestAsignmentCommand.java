@@ -1,6 +1,8 @@
 package commands.types;
 
+import main.MainBot;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import sql.Assignment;
 import sql.ReminderHandler;
@@ -14,6 +16,17 @@ import java.util.Date;
 public class ClosestAsignmentCommand implements SlashCommands {
     @Override
     public void executeCommand(SlashCommandInteractionEvent event) throws ParseException {
+
+        if (MainBot.INSTANCE.getBotStatus() != OnlineStatus.ONLINE) {
+            event.reply("The bot is under surgery. SQL features are disabled.").setEphemeral(true).queue();
+            System.out.println("Command execution stopped. Bot not online!");
+            return;
+        }
+
+        handleCommand(event);
+    }
+
+    private void handleCommand(SlashCommandInteractionEvent event) throws ParseException {
         String name = event.getName();
         String userId = event.getUser().getId();
         if (!name.equals("get-closest-assignment")) {
@@ -33,8 +46,6 @@ public class ClosestAsignmentCommand implements SlashCommands {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                 Date currentDate = new Date();
-                System.out.println(currentDate);
-                System.out.println(assignment.getDate());
 
                 long timeDifference = assignment.getDate().getTime() - currentDate.getTime();
                 long daysLeft = timeDifference / (24 * 60 * 60 * 1000);

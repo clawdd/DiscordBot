@@ -1,5 +1,7 @@
 package commands.types;
 
+import main.MainBot;
+import net.dv8tion.jda.api.OnlineStatus;
 import sql.ReminderHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -15,6 +17,17 @@ public class ReminderCommand implements SlashCommands {
 
     @Override
     public void executeCommand(SlashCommandInteractionEvent event) throws ParseException {
+
+        if (MainBot.INSTANCE.getBotStatus() != OnlineStatus.ONLINE) {
+            event.reply("The bot is under surgery. SQL features are disabled.").setEphemeral(true).queue();
+            System.out.println("Command execution stopped. Bot not online!");
+            return;
+        }
+
+        hanldeCommand(event);
+    }
+
+    private static void hanldeCommand(SlashCommandInteractionEvent event) throws ParseException {
         String name = event.getName();
         if (!name.equals("set-reminder")) {
             throw new ParseException("parse error", 0);

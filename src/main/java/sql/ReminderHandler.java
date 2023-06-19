@@ -2,9 +2,11 @@ package sql;
 
 import main.MainBot;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReminderHandler {
@@ -52,5 +54,22 @@ public class ReminderHandler {
         }
 
         return null;
+    }
+
+
+    public void deletePastDates() throws SQLException {
+
+        String deleteQuery = "DELETE FROM reminder WHERE date < ?";
+
+        try (
+             PreparedStatement statement = MainBot.INSTANCE.getConnection().prepareStatement(deleteQuery)) {
+
+            // Set the current date as the parameter for the delete query
+            statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+
+            int rowsAffected = statement.executeUpdate();
+
+            System.out.println(rowsAffected + " rows deleted.");
+        }
     }
 }
