@@ -1,12 +1,16 @@
 package commands.types;
 
 import main.MainBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import sql.ReminderHandler;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+
+import static secret.BotStrings.AdminUSERID;
 
 public class CleanUpCommand implements SlashCommands {
 
@@ -17,6 +21,20 @@ public class CleanUpCommand implements SlashCommands {
         if (MainBot.INSTANCE.getBotStatus() != OnlineStatus.ONLINE) {
             event.reply("The bot is under surgery. SQL features are disabled.").setEphemeral(true).queue();
             System.out.println("Command execution stopped. Bot not online!");
+            return;
+        }
+
+        String userId = event.getUser().getId();
+
+        if (!userId.equals(AdminUSERID)) {
+
+            EmbedBuilder eb = new EmbedBuilder()
+                    .setTitle("Not for you!")
+                    .setDescription("This command is only for the Admin")
+                    .setColor(Color.RED);
+
+            event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+            System.out.println("Command couldn't be executed: NOT Admin");
             return;
         }
 

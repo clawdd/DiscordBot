@@ -21,7 +21,10 @@ public class CommandInfoCommand implements SlashCommands{
 
             eb.setTitle("Command - Info", "https://github.com/clawdd/DiscordBot");
             eb.addField("Administrator", ":black_small_square: /set-bot-status \n :black_small_square: /clean-up-reminder", false);
-            eb.addField("Default", ":black_small_square: /bot-info \n:black_small_square: /command-info \n:black_small_square: /set-reminder \n:black_small_square: /get-closest-assignment", false);
+            eb.addField("Bot Information", ":black_small_square: /bot-info \n:black_small_square: /command-info", false);
+            eb.addField("Setter Commands", ":black_small_square: /set-reminder \n:black_small_square: /set-test \n:black_small_square: /set-todo", true);
+            eb.addField("Getter Commands", ":black_small_square: /get-closest-assignment \n:black_small_square: /get-tests-information \n:black_small_square: /get-test-types \n:black_small_square: /get-todos ", true);
+            eb.addField("Data Manipulation", ":black_small_square: /delete-todo", false);
 
             event.replyEmbeds(eb.build()).queue();
             System.out.println("Command executed with no error: " + name);

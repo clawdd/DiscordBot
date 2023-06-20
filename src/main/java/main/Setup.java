@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_2.2.2";
+    private final String VERSION = "Test_3.0";
     private Connection connection;
     private final JDA jda;
 
@@ -50,10 +50,7 @@ public class Setup {
     public void updateSlashCommands() {
 
         jda.upsertCommand("bot-info", "all bot information you need").queue();
-        jda.upsertCommand("set-bot-status", "sets bot status")
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
-                .setGuildOnly(true)
-                .queue();
+        jda.upsertCommand("set-bot-status", "sets bot status").queue();
         jda.upsertCommand("command-info", "all command information you need").queue();
         jda.upsertCommand("set-reminder", "remind urself to do your stuff")
                 .addOption(OptionType.STRING, "class", "Class name", true)
@@ -65,11 +62,8 @@ public class Setup {
                 .addOption(OptionType.INTEGER, "minute", "Minute", true)
                 .queue();
         jda.upsertCommand("get-closest-assignment", "watch out its close!").queue();
-        jda.upsertCommand("clean-up-reminder", "deletes all dates in the past")
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
-                .setGuildOnly(true)
-                .queue();
-        jda.upsertCommand("insert-test", "Insert your test with all information")
+        jda.upsertCommand("clean-up-reminder", "deletes all dates in the past").queue();
+        jda.upsertCommand("set-test", "Insert your test with all information")
                 .addOption(OptionType.STRING, "test-type", "what type of test", true)
                 .addOption(OptionType.STRING, "test-name", "Name of the test", true)
                 .addOption(OptionType.INTEGER, "points-achieved", "Points achieved in the test", true)
@@ -78,11 +72,11 @@ public class Setup {
                 .addOption(OptionType.INTEGER, "num-of-tests", "Number of tests to be taken", true)
                 .addOption(OptionType.INTEGER, "points-for-admission", "Points needed for admission", true)
                 .queue();
-        jda.upsertCommand("tests-information", "returns if you passed the class")
+        jda.upsertCommand("get-tests-information", "returns if you passed the tests overall")
                 .addOption(OptionType.STRING, "test-type", "what tests do you want to check", true)
                 .queue();
-        jda.upsertCommand("get-all-test-types", "returns all test types").queue();
-        jda.upsertCommand("todo", "set a todo")
+        jda.upsertCommand("get-test-types", "returns all test types").queue();
+        jda.upsertCommand("set-todo", "set a todo")
                 .addOption(OptionType.STRING, "text", "your todo text", true)
                 .queue();
         jda.upsertCommand("get-todos", "returns all your todo entries").queue();
