@@ -13,4 +13,4 @@
   - get test information with  "/test-information"
 
 ### features in work:
-  - adding more time management features
+  - adding more debug features for console output
