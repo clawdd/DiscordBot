@@ -12,5 +12,5 @@
   - get a list with all types of tests with "/get-all-test-types"
   - get test information with  "/test-information"
 
-### features in work:<
-  - adding more time management features
+### features in work:
+  - adding more debug features for console output
