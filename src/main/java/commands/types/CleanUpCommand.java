@@ -31,9 +31,9 @@ public class CleanUpCommand implements SlashCommands {
 
         try {
             ReminderHandler reminderHandler = new ReminderHandler();
-            reminderHandler.deletePastDates();
+            int affectedDates = reminderHandler.deletePastDates();
 
-            event.reply("Past dates have been successfully deleted.").setEphemeral(true).queue();
+            event.reply( affectedDates + " Date / s have been deleted").setEphemeral(true).queue();
             System.out.println("Command executed with no error: " + name);
         } catch (SQLException e) {
             throw new RuntimeException(e);

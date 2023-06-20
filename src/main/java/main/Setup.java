@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_2.1";
+    private final String VERSION = "Test_2.2";
     private Connection connection;
     private final JDA jda;
 
@@ -71,6 +71,19 @@ public class Setup {
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
                 .setGuildOnly(true)
                 .queue();
+        jda.upsertCommand("insert-test", "Insert your test with all information")
+                .addOption(OptionType.STRING, "test-type", "what type of test", true)
+                .addOption(OptionType.STRING, "test-name", "Name of the test", true)
+                .addOption(OptionType.INTEGER, "points-achieved", "Points achieved in the test", true)
+                .addOption(OptionType.INTEGER, "points-possible", "Max points possible in the test", true)
+                .addOption(OptionType.INTEGER, "percentage-to-pass", "Percentage required to pass the test", true)
+                .addOption(OptionType.INTEGER, "num-of-tests", "Number of tests to be taken", true)
+                .addOption(OptionType.INTEGER, "points-for-admission", "Points needed for admission", true)
+                .queue();
+        jda.upsertCommand("tests-information", "returns if you passed the class")
+                .addOption(OptionType.STRING, "test-type", "what tests do you want to check", true)
+                .queue();
+        jda.upsertCommand("get-all-test-types", "returns all test types").setGuildOnly(true).queue();
 
         System.out.println("Updated Commands");
     }

@@ -27,6 +27,9 @@ public class CommandManager extends ListenerAdapter {
         commands.put("set-reminder", new ReminderCommand());
         commands.put("get-closest-assignment", new ClosestAsignmentCommand());
         commands.put("clean-up-reminder", new CleanUpCommand());
+        commands.put("insert-test", new InsertTestCommand());
+        commands.put("tests-information", new TestsInfoCommand());
+        commands.put("get-all-test-types", new AllTestTypesCommand());
     }
 
     @Override
