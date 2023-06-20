@@ -30,6 +30,9 @@ public class CommandManager extends ListenerAdapter {
         commands.put("insert-test", new InsertTestCommand());
         commands.put("tests-information", new TestsInfoCommand());
         commands.put("get-all-test-types", new AllTestTypesCommand());
+        commands.put("todo", new TodoCommand());
+        commands.put("get-todos", new GetTodoCommand());
+        commands.put("delete-todo", new DeleteTodo());
     }
 
     @Override

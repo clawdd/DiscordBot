@@ -58,24 +58,35 @@ public class TestsInfoCommand implements SlashCommands {
         int overallPointsPossible = pointsHandler.getTotalPointsPossible(userId, testType);
         int pointsAdmission = testTypeInformation.getPointsAdmission();
 
-        String passedOrNot = checkPassed(totalPoints, pointsAdmission);
+        String passedOrNot = checkPassedString(totalPoints, pointsAdmission);
+        Color color = checkPassedColor(totalPoints, pointsAdmission);
 
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Information: " + testType)
                 .addField("Overall Points", totalPoints + " / " + overallPointsPossible, true)
                 .addField("Percentage to pass", String.valueOf(testTypeInformation.getPercentageToPass()), true)
                 .addField("Admission Points", totalPoints + " / " + pointsAdmission, false)
-                .addField("Status", passedOrNot, false);
+                .addField("Status", passedOrNot, false)
+                .setColor(color);
 
         event.replyEmbeds(eb.build()).setEphemeral(true).queue();
     }
 
-    private String checkPassed(int totalPoints, int pointsAdmission) {
+    private String checkPassedString(int totalPoints, int pointsAdmission) {
 
         if (totalPoints >= pointsAdmission) {
             return "Passed :white_check_mark:";
         } else {
             return "Not passed :x:";
+        }
+    }
+
+    private Color checkPassedColor(int totalPoints, int pointsAdmission) {
+
+        if (totalPoints >= pointsAdmission) {
+            return Color.GREEN;
+        } else {
+            return Color.RED;
         }
     }
 }

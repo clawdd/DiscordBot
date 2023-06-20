@@ -83,7 +83,16 @@ public class Setup {
         jda.upsertCommand("tests-information", "returns if you passed the class")
                 .addOption(OptionType.STRING, "test-type", "what tests do you want to check", true)
                 .queue();
-        jda.upsertCommand("get-all-test-types", "returns all test types").setGuildOnly(true).queue();
+        jda.upsertCommand("get-all-test-types", "returns all test types").queue();
+        jda.upsertCommand("todo", "set a todo")
+                .addOption(OptionType.STRING, "text", "your todo text", true)
+                .setGuildOnly(true)
+                .queue();
+        jda.upsertCommand("get-todos", "returns all your todo entries").setGuildOnly(true).queue();
+        jda.upsertCommand("delete-todo", "deletes a todo entry by id")
+                .addOption(OptionType.INTEGER, "id", "todo id", true)
+                .setGuildOnly(true)
+                .queue();
 
         System.out.println("Updated Commands");
     }
