@@ -70,6 +70,7 @@ public class TestsInfoCommand implements SlashCommands {
                 .setColor(color);
 
         event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+        System.out.println("Command executed with no error: " + name);
     }
 
     private String checkPassedString(int totalPoints, int pointsAdmission) {

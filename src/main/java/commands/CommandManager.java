@@ -23,7 +23,6 @@ public class CommandManager extends ListenerAdapter {
         commands.put("bot-info", new BotInfoCommand());
         commands.put("set-bot-status", new BotStatusCommand());
         commands.put("command-info", new CommandInfoCommand());
-        commands.put("test", new TestCommand());
         commands.put("set-reminder", new ReminderCommand());
         commands.put("get-closest-assignment", new ClosestAsignmentCommand());
         commands.put("clean-up-reminder", new CleanUpCommand());

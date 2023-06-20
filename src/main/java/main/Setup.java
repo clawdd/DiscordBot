@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_2.2.1";
+    private final String VERSION = "Test_2.2.2";
     private Connection connection;
     private final JDA jda;
 
@@ -49,8 +49,6 @@ public class Setup {
 
     public void updateSlashCommands() {
 
-        jda.upsertCommand("test", "testing only")
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)).queue();
         jda.upsertCommand("bot-info", "all bot information you need").queue();
         jda.upsertCommand("set-bot-status", "sets bot status")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
@@ -86,14 +84,10 @@ public class Setup {
         jda.upsertCommand("get-all-test-types", "returns all test types").queue();
         jda.upsertCommand("todo", "set a todo")
                 .addOption(OptionType.STRING, "text", "your todo text", true)
-                .setGuildOnly(true)
                 .queue();
-        jda.upsertCommand("get-todos", "returns all your todo entries")
-                .setGuildOnly(true)
-                .queue();
+        jda.upsertCommand("get-todos", "returns all your todo entries").queue();
         jda.upsertCommand("delete-todo", "deletes a todo entry by id")
                 .addOption(OptionType.INTEGER, "id", "todo id", true)
-                .setGuildOnly(true)
                 .queue();
 
         System.out.println("Updated Commands");

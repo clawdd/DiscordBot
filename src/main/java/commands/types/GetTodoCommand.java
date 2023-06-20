@@ -51,6 +51,7 @@ public class GetTodoCommand implements SlashCommands {
             }
 
             event.replyEmbeds(embeds).setEphemeral(true).queue();
+            System.out.println("Command executed with no error: " + name);
         }
     }
 }

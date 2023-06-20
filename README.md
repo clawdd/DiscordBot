@@ -1,6 +1,6 @@
 # DiscordBot
 
-### current bot version: Test_2.2.1
+### current bot version: Test_2.2.2
 ### current bot features:
   - insight into bot information with "/bot-info"
   - setting bot satus with "/set-bot-status" : for dynamic command usage

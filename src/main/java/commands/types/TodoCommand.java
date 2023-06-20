@@ -41,6 +41,6 @@ public class TodoCommand implements SlashCommands {
                 .setDescription(text);
 
         event.replyEmbeds(eb.build()).setEphemeral(true).queue();
-
+        System.out.println("Command executed with no error: " + name);
     }
 }

@@ -42,6 +42,7 @@ public class DeleteTodo implements SlashCommands {
                 .setColor(Color.RED);
 
         event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+        System.out.println("Command executed with no error: " + name);
     }
 }
 
