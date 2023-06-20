@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_2.2";
+    private final String VERSION = "Test_2.2.1";
     private Connection connection;
     private final JDA jda;
 
@@ -88,7 +88,9 @@ public class Setup {
                 .addOption(OptionType.STRING, "text", "your todo text", true)
                 .setGuildOnly(true)
                 .queue();
-        jda.upsertCommand("get-todos", "returns all your todo entries").setGuildOnly(true).queue();
+        jda.upsertCommand("get-todos", "returns all your todo entries")
+                .setGuildOnly(true)
+                .queue();
         jda.upsertCommand("delete-todo", "deletes a todo entry by id")
                 .addOption(OptionType.INTEGER, "id", "todo id", true)
                 .setGuildOnly(true)

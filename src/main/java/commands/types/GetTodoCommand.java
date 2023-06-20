@@ -44,8 +44,8 @@ public class GetTodoCommand implements SlashCommands {
                 String todo = entry.getValue();
 
                 EmbedBuilder eb = new EmbedBuilder();
-                eb.setTitle("Todo Entry ID: " + id);
-                eb.setDescription(todo);
+                eb.setDescription(todo)
+                .setFooter("Todo Entry ID: " + id);
 
                 embeds.add(eb.build());
             }
