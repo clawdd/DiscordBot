@@ -50,17 +50,20 @@ public class ToDoHandler {
         return todoEntries;
     }
 
-    public void deleteTodoItem(int idTodo) {
-        String sql = "DELETE FROM todo WHERE idtodo = ?";
+    public boolean deleteTodoItem(int idTodo, String userid) {
+        String sql = "DELETE FROM todo WHERE idtodo = ? AND userid = ?";
 
         try (PreparedStatement statement = MainBot.INSTANCE.getConnection().prepareStatement(sql)) {
             statement.setInt(1, idTodo);
+            statement.setString(2, userid);
 
             int deleted = statement.executeUpdate();
             if (deleted > 0) {
                 System.out.println("Todo item deleted successfully.");
+                return true;
             } else {
                 System.out.println("Failed to delete todo item. No matching ID found.");
+                return false;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

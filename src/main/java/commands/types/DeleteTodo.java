@@ -32,16 +32,26 @@ public class DeleteTodo implements SlashCommands {
         }
 
         int idtodo = Objects.requireNonNull(event.getOption("id")).getAsInt();
+        String userid = event.getUser().getId();
 
         ToDoHandler toDoHandler = new ToDoHandler();
-        toDoHandler.deleteTodoItem(idtodo);
+        boolean deleted = toDoHandler.deleteTodoItem(idtodo, userid);
 
-        EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Deleted Todo")
-                .addField("ID: ", String.valueOf(idtodo), false)
-                .setColor(Color.RED);
+        if (deleted) {
+            EmbedBuilder eb = new EmbedBuilder()
+                    .setTitle("Deleted Todo")
+                    .addField("ID: ", String.valueOf(idtodo), false)
+                    .setColor(Color.RED);
 
-        event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+            event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+        } else {
+            EmbedBuilder eb = new EmbedBuilder()
+                    .setTitle("Not for you!")
+                    .setDescription("That's not your entry")
+                    .setColor(Color.RED);
+
+            event.replyEmbeds(eb.build()).setEphemeral(true).queue();
+        }
         System.out.println("Command executed with no error: " + name);
     }
 }

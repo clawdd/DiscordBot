@@ -1,7 +1,6 @@
 # DiscordBot
- currentBot version: **Test_3.1** (last larger test push)
-* hotfix: commands names wrongly registered in ```CommandManager```
-* checked all features with the Admin account
+ currentBot version: **Test_3.2** (last larger test push)
+* bugfix: cannot delete todos if userid´s dont match
 
 >Disclaimer : This Bot was created with the intention to track my own university assignments and their points. As you see
 > this somehow turned into a whole Project, as learning experience for me. **If** wished I will and can provide you with 
