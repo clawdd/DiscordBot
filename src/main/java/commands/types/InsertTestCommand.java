@@ -24,7 +24,7 @@ public class InsertTestCommand implements SlashCommands {
 
     private void handleCommand(SlashCommandInteractionEvent event) throws ParseException {
         String name = event.getName();
-        if (!name.equals("insert-test")) {
+        if (!name.equals("set-test")) {
             throw new ParseException("parse error", 0);
         }
 

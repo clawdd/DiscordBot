@@ -26,7 +26,7 @@ public class TodoCommand implements SlashCommands {
     private void hanldeCommand(SlashCommandInteractionEvent event) throws ParseException {
 
         String name = event.getName();
-        if (!name.equals("todo")) {
+        if (!name.equals("set-todo")) {
             throw new ParseException("parse error", 0);
         }
 

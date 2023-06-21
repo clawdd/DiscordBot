@@ -28,7 +28,7 @@ public class TestsInfoCommand implements SlashCommands {
     private void hanldeCommand(SlashCommandInteractionEvent event) throws ParseException {
 
         String name = event.getName();
-        if (!name.equals("tests-information")) {
+        if (!name.equals("get-tests-information")) {
             throw new ParseException("parse error", 0);
         }
 

@@ -26,10 +26,10 @@ public class CommandManager extends ListenerAdapter {
         commands.put("set-reminder", new ReminderCommand());
         commands.put("get-closest-assignment", new ClosestAsignmentCommand());
         commands.put("clean-up-reminder", new CleanUpCommand());
-        commands.put("insert-test", new InsertTestCommand());
-        commands.put("tests-information", new TestsInfoCommand());
-        commands.put("get-all-test-types", new AllTestTypesCommand());
-        commands.put("todo", new TodoCommand());
+        commands.put("set-test", new InsertTestCommand());
+        commands.put("get-tests-information", new TestsInfoCommand());
+        commands.put("get-test-types", new AllTestTypesCommand());
+        commands.put("set-todo", new TodoCommand());
         commands.put("get-todos", new GetTodoCommand());
         commands.put("delete-todo", new DeleteTodo());
     }

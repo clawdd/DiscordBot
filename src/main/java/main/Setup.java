@@ -20,7 +20,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_3.0";
+    private final String VERSION = "Test_3.1";
     private Connection connection;
     private final JDA jda;
 
