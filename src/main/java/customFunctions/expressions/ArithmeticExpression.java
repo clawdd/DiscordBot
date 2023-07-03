@@ -1,17 +1,14 @@
-package CustomFunc;
+package customFunctions.expressions;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.text.ParseException;
 import java.util.List;
-
-import static java.lang.Character.isDigit;
 
 class ExpressionNode {
     String operator;
     ExpressionNode left;
     ExpressionNode right;
-    int value;
+    int value; // For numeric values
+    String variable; // For variables
+    boolean isNumeric; // Flag to indicate if it's a numeric value or variable
 
     public ExpressionNode(String operator, ExpressionNode left, ExpressionNode right) {
         this.operator = operator;
@@ -21,6 +18,12 @@ class ExpressionNode {
 
     public ExpressionNode(int value) {
         this.value = value;
+        this.isNumeric = true;
+    }
+
+    public ExpressionNode(String variable) {
+        this.variable = variable;
+        this.isNumeric = false;
     }
 
     public boolean isOperator() {
@@ -28,20 +31,15 @@ class ExpressionNode {
     }
 }
 
-public class ArithmeticFunction implements FuncInterface {
+public class ArithmeticExpression {
 
-    @Override
-    public void executeFunction(MessageReceivedEvent event, List<String> tokenList) throws ParseException {
-        if (isValidArithmeticExpression(tokenList)) {
-            ExpressionNode root = parseExpression(tokenList);
-            int result = evaluateArithmeticExpression(root);
-            event.getChannel().sendMessage("Result: " + result).queue();
-        } else {
-            throw new ParseException("Invalid arithmetic expression.", 0);
-        }
+    private List<String> tokenList;
+
+    public ArithmeticExpression(List<String> tokenList) {
+        this.tokenList = tokenList;
     }
 
-    private boolean isValidArithmeticExpression(List<String> tokenList) {
+    public boolean isValidArithmeticExpression() {
         if (tokenList.isEmpty()) {
             return false;
         }
@@ -73,20 +71,29 @@ public class ArithmeticFunction implements FuncInterface {
             }
             return new ExpressionNode(token, left, right);
         } else {
-            try {
-                int value = Integer.parseInt(token);
-                return new ExpressionNode(value);
-            } catch (NumberFormatException e) {
-                return null; // Invalid number
+            // Check if the token is a variable (e.g., "a", "b", etc.)
+            if (Character.isLetter(token.charAt(0))) {
+                return new ExpressionNode(token); // Variable node
+            } else {
+                try {
+                    int value = Integer.parseInt(token);
+                    return new ExpressionNode(value); // Numeric value node
+                } catch (NumberFormatException e) {
+                    return null; // Invalid number
+                }
             }
         }
     }
 
-    private int evaluateArithmeticExpression(ExpressionNode root) {
+    public String evaluateArithmeticExpression() {
+        ExpressionNode root = parseExpression(tokenList);
         if (root == null) {
-            throw new IllegalArgumentException("ExpressionNode root cannot be null.");
+            throw new IllegalArgumentException("Expression is not valid.");
         }
+        return String.valueOf(evaluateArithmeticExpression(root));
+    }
 
+    private int evaluateArithmeticExpression(ExpressionNode root) {
         if (root.isOperator()) {
             int leftValue = evaluateArithmeticExpression(root.left);
             int rightValue = evaluateArithmeticExpression(root.right);

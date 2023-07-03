@@ -1,6 +1,6 @@
 package main;
 
-import CustomFunc.FuncManager;
+import customFunctions.FuncManager;
 import buttons.ButtonManager;
 import commands.CommandManager;
 import net.dv8tion.jda.api.JDA;

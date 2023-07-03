@@ -1,8 +1,13 @@
-package CustomFunc;
+package customFunctions;
 
+import customFunctions.types.ArithmeticFunction;
+import customFunctions.types.AddFunction;
+import customFunctions.types.CallFunction;
+import customFunctions.types.Condition;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +25,17 @@ public class FuncManager extends ListenerAdapter {
 
         this.functions = new ConcurrentHashMap<>();
         functions.put("ADDI", new InfiniteAdditionFunc());
+
         functions.put("ADD", new ArithmeticFunction());
         functions.put("SUB", new ArithmeticFunction());
         functions.put("MUL", new ArithmeticFunction());
         functions.put("DIV", new ArithmeticFunction());
+
+        functions.put("FUNC", new AddFunction());
+
+        functions.put("CALL", new CallFunction());
+
+        functions.put("IF", new Condition());
     }
 
     @Override
@@ -41,11 +53,13 @@ public class FuncManager extends ListenerAdapter {
             parseMessage(msg, event);
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
-    private void parseMessage(String msg, MessageReceivedEvent event) throws ParseException {
+    private void parseMessage(String msg, MessageReceivedEvent event) throws ParseException, SQLException {
 
         msg = msg.replace("(", "");
         msg = msg.replace(")", "");
@@ -55,7 +69,10 @@ public class FuncManager extends ListenerAdapter {
 
         while (startIndex < msg.length()) {
 
-            if (msg.charAt(startIndex) == '(' || msg.charAt(startIndex) == ')') {
+            char currentChar = msg.charAt(startIndex);
+
+            // Check for characters to skip: spaces and newline characters
+            if (currentChar == '\n') {
                 startIndex++;
                 continue;
             }
@@ -77,6 +94,7 @@ public class FuncManager extends ListenerAdapter {
             startIndex = endIndex + 1;
         }
 
+        System.out.println("Token List: " + tokenList);
         callFunction(tokenList, event);
     }
 
@@ -88,12 +106,25 @@ public class FuncManager extends ListenerAdapter {
                 || subString.equalsIgnoreCase("SUB")
                 || subString.equalsIgnoreCase("MUL")
                 || subString.equalsIgnoreCase("DIV")
+                || subString.equalsIgnoreCase("FUNC")
+                || subString.equalsIgnoreCase("DEF")
+                || subString.equalsIgnoreCase("CALL")
+                || subString.equalsIgnoreCase("IF")
+                || subString.equalsIgnoreCase("THEN")
+                || subString.equalsIgnoreCase("ELSE")
+                || subString.equalsIgnoreCase("<")
+                || subString.equalsIgnoreCase(">")
+                || subString.equalsIgnoreCase("=")
+                || subString.equalsIgnoreCase("<=")
+                || subString.equalsIgnoreCase(">=")
                 || checkNumber(subString)) {
 
             token = subString.toUpperCase();
 
-        }else{
-            throw new ParseException("The function: " + subString + "was not found", startIndex);
+        }else if (subString.matches("[A-Za-z]+")){
+            token = subString.toUpperCase();
+        } else {
+            throw new ParseException("Parse exception at: " + startIndex, startIndex);
         }
         return token;
     }
@@ -110,7 +141,8 @@ public class FuncManager extends ListenerAdapter {
         }
         return true;
     }
-    private void callFunction(List<String>tokenList, MessageReceivedEvent event) throws ParseException {
+    private void callFunction(List<String>tokenList, MessageReceivedEvent event) throws ParseException, SQLException {
+
 
         String funcDef = tokenList.get(0);
 
