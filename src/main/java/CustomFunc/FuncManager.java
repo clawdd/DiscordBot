@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Character.isDigit;
+import static secret.BotStrings.BotID;
 
 public class FuncManager extends ListenerAdapter {
 
@@ -19,7 +20,10 @@ public class FuncManager extends ListenerAdapter {
 
         this.functions = new ConcurrentHashMap<>();
         functions.put("ADDI", new InfiniteAdditionFunc());
-
+        functions.put("ADD", new ArithmeticFunction());
+        functions.put("SUB", new ArithmeticFunction());
+        functions.put("MUL", new ArithmeticFunction());
+        functions.put("DIV", new ArithmeticFunction());
     }
 
     @Override
@@ -29,6 +33,11 @@ public class FuncManager extends ListenerAdapter {
         System.out.println("Message received: " + msg);
 
         try {
+
+            if (event.getAuthor().getId().equals(BotID)) {
+                return;
+            }
+
             parseMessage(msg, event);
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -38,10 +47,18 @@ public class FuncManager extends ListenerAdapter {
 
     private void parseMessage(String msg, MessageReceivedEvent event) throws ParseException {
 
+        msg = msg.replace("(", "");
+        msg = msg.replace(")", "");
+
         List<String> tokenList = new ArrayList<>();
         int startIndex = 0;
 
         while (startIndex < msg.length()) {
+
+            if (msg.charAt(startIndex) == '(' || msg.charAt(startIndex) == ')') {
+                startIndex++;
+                continue;
+            }
 
             //check for keywords
             int endIndex = msg.indexOf(' ', startIndex);
@@ -66,9 +83,16 @@ public class FuncManager extends ListenerAdapter {
     private String createToken(String subString, int startIndex) throws ParseException {
         String token = "";
 
-        if (subString.equalsIgnoreCase("ADDI") || subString.equalsIgnoreCase("ADD") || subString.equalsIgnoreCase("SUB") || checkNumber(subString)) {
+        if (subString.equalsIgnoreCase("ADDI")
+                || subString.equalsIgnoreCase("ADD")
+                || subString.equalsIgnoreCase("SUB")
+                || subString.equalsIgnoreCase("MUL")
+                || subString.equalsIgnoreCase("DIV")
+                || checkNumber(subString)) {
+
             token = subString.toUpperCase();
-        } else {
+
+        }else{
             throw new ParseException("The function: " + subString + "was not found", startIndex);
         }
         return token;
@@ -86,7 +110,6 @@ public class FuncManager extends ListenerAdapter {
         }
         return true;
     }
-
     private void callFunction(List<String>tokenList, MessageReceivedEvent event) throws ParseException {
 
         String funcDef = tokenList.get(0);
