@@ -1,13 +1,12 @@
 package main;
 
+import CustomFunc.FuncManager;
 import buttons.ButtonManager;
 import commands.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import secret.BotStrings;
@@ -20,7 +19,7 @@ import static secret.BotStrings.username;
 
 public class Setup {
 
-    private final String VERSION = "Test_3.2";
+    private final String VERSION = "Test_4.0";
     private Connection connection;
     private final JDA jda;
 
@@ -43,6 +42,7 @@ public class Setup {
 
         jda.addEventListener(new CommandManager());
         jda.addEventListener(new ButtonManager());
+        jda.addEventListener(new FuncManager());
 
         System.out.println("Added listeners");
     }

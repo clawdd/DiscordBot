@@ -1,6 +1,6 @@
 # DiscordBot
- currentBot version: **Test_3.2** (last larger test push)
-* bugfix: cannot delete todos if userid´s dont match
+ currentBot version: **Test_4.0** (last larger test push)
+* Started implementing of parser for simple functions, already usable is ```addi num1 + num2 + . . .``` infinite addition yay!
 
 >Disclaimer : This Bot was created with the intention to track my own university assignments and their points. As you see
 > this somehow turned into a whole Project, as learning experience for me. **If** wished I will and can provide you with 
@@ -43,6 +43,7 @@
 * [x] study timer
 * [x] group organization
 * [x] fun commands for breaks
+* [x] ! basic math and coding !
 * [ ] use of APIs?
 
 The plan now? Preparing last bits of code for an Alpha release version of the bot and testing, testing and testing features.

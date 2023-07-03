@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager extends ListenerAdapter {
 
-    private ConcurrentHashMap<String, SlashCommands> commands;
+    private final ConcurrentHashMap<String, SlashCommands> commands;
 
     public CommandManager() {
 
