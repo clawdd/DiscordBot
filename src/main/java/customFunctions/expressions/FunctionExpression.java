@@ -117,7 +117,7 @@ public class FunctionExpression {
     public boolean isKeyword(String token) {
 
         switch (token) {
-            case "ADD", "SUB", "MUL", "DIV", "FUNC", "DEF", "IF", "THEN", "ELSE", "<", ">", "=", "<=", ">=" -> {
+            case "ADD", "SUB", "MUL", "DIV", "MOD", "FUNC", "DEF", "IF", "THEN", "ELSE", "<", ">", "=", "<=", ">=" -> {
                 return true;
             }
             default -> {
@@ -134,7 +134,7 @@ public class FunctionExpression {
     }
 
     private boolean isArithmeticOperator(String token) {
-        return token.equals("ADD") || token.equals("SUB") || token.equals("MUL") || token.equals("DIV");
+        return token.equals("ADD") || token.equals("SUB") || token.equals("MUL") || token.equals("DIV") || token.equals("MOD");
     }
 
     private boolean hasDuplicates(List<String> list) {
@@ -173,7 +173,7 @@ public class FunctionExpression {
         expression = insertValues(expression, funcVars, values);
 
         switch (expression.get(0)) {
-            case "ADD", "SUB", "MUL", "DIV" -> {
+            case "ADD", "SUB", "MUL", "DIV", "MOD" -> {
                 ArithmeticExpression aexp = new ArithmeticExpression(expression);
 
                 if (aexp.isValidArithmeticExpression()) {

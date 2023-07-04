@@ -133,6 +133,7 @@ public class CallFunction implements FuncInterface{
                 || subString.equalsIgnoreCase("SUB")
                 || subString.equalsIgnoreCase("MUL")
                 || subString.equalsIgnoreCase("DIV")
+                || subString.equalsIgnoreCase("MOD")
                 || subString.equalsIgnoreCase("FUNC")
                 || subString.equalsIgnoreCase("DEF")
                 || subString.equalsIgnoreCase("CALL")

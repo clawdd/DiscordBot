@@ -63,7 +63,7 @@ public class ArithmeticExpression {
         String token = tokenList.get(currentIndex[0]);
         currentIndex[0]++;
 
-        if (token.equals("ADD") || token.equals("SUB") || token.equals("MUL") || token.equals("DIV")) {
+        if (token.equals("ADD") || token.equals("SUB") || token.equals("MUL") || token.equals("DIV") || token.equals("MOD")) {
             ExpressionNode left = parseExpression(tokenList, currentIndex);
             ExpressionNode right = parseExpression(tokenList, currentIndex);
             if (left == null || right == null) {
@@ -113,6 +113,12 @@ public class ArithmeticExpression {
                         throw new IllegalArgumentException("Division by zero.");
                     }
                     return leftValue / rightValue;
+                }
+                case "MOD" -> {
+                    if (rightValue == 0) {
+                        throw new IllegalArgumentException("Division by zero.");
+                    }
+                    return leftValue % rightValue;
                 }
                 default -> throw new IllegalArgumentException("Invalid operator: " + root.operator);
             }

@@ -1,6 +1,7 @@
 package customFunctions.expressions;
 
 import java.util.List;
+import java.util.Objects;
 
 public class IfExpression {
 
@@ -100,7 +101,8 @@ public class IfExpression {
                 && !side.get(currentIndex).equals("ADD")
                 && !side.get(currentIndex).equals("SUB")
                 && !side.get(currentIndex).equals("MUL")
-                && !side.get(currentIndex).equals("DIV")) {
+                && !side.get(currentIndex).equals("DIV")
+                && !side.get(currentIndex).equals("MOD")) {
             return true;
         }
 
@@ -167,6 +169,12 @@ public class IfExpression {
             }
         }
 
+        if (Objects.equals(cond.get(0), "0")) {
+            // 0 equals false
+            ArithmeticExpression exp = new ArithmeticExpression(secCase);
+            return exp.evaluateArithmeticExpression();
+        }
+        //otherwise true
         ArithmeticExpression exp = new ArithmeticExpression(primCase);
         return exp.evaluateArithmeticExpression();
     }

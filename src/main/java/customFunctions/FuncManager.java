@@ -30,6 +30,7 @@ public class FuncManager extends ListenerAdapter {
         functions.put("SUB", new ArithmeticFunction());
         functions.put("MUL", new ArithmeticFunction());
         functions.put("DIV", new ArithmeticFunction());
+        functions.put("MOD", new ArithmeticFunction());
 
         functions.put("FUNC", new AddFunction());
 
@@ -106,6 +107,7 @@ public class FuncManager extends ListenerAdapter {
                 || subString.equalsIgnoreCase("SUB")
                 || subString.equalsIgnoreCase("MUL")
                 || subString.equalsIgnoreCase("DIV")
+                || subString.equalsIgnoreCase("MOD")
                 || subString.equalsIgnoreCase("FUNC")
                 || subString.equalsIgnoreCase("DEF")
                 || subString.equalsIgnoreCase("CALL")
