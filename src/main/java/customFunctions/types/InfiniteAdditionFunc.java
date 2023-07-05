@@ -1,5 +1,6 @@
-package customFunctions;
+package customFunctions.types;
 
+import customFunctions.FuncInterface;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.text.ParseException;
@@ -7,7 +8,7 @@ import java.util.List;
 
 import static java.lang.Character.isDigit;
 
-public class InfiniteAdditionFunc implements FuncInterface{
+public class InfiniteAdditionFunc implements FuncInterface {
 
 
     @Override

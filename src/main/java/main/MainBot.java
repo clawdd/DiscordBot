@@ -39,6 +39,16 @@ public class MainBot {
                             System.out.println("Bot shutdown");
                         }
                     }
+
+                    if (line.equalsIgnoreCase("reconnect")) {
+                        if (INSTANCE != null) {
+                            INSTANCE.setOnlineStatus(OnlineStatus.ONLINE);
+
+                            INSTANCE.establishSQLConnection();
+                            System.out.println("Bot reconnected to SQL Data base");
+
+                        }
+                    }
                 }
             }catch (SQLException | IOException e){
                 e.printStackTrace();

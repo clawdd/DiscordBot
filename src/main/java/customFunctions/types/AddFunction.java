@@ -32,7 +32,8 @@ public class AddFunction implements FuncInterface {
             functionHandler.insertFunction(userid, functionName, function);
 
             EmbedBuilder eb = createEmbeded(function, exp);
-            event.getChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getChannel().sendMessageEmbeds(eb.build()).setSuppressedNotifications(true).queue();
+            System.out.println("New function: " + exp.getFuncName() + " was added!");
         }
     }
 

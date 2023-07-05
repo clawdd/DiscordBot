@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import playground.MessageReceivedManager;
 import secret.BotStrings;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,6 +44,7 @@ public class Setup {
         jda.addEventListener(new CommandManager());
         jda.addEventListener(new ButtonManager());
         jda.addEventListener(new FuncManager());
+        jda.addEventListener(new MessageReceivedManager());
 
         System.out.println("Added listeners");
     }

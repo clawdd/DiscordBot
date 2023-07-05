@@ -1,8 +1,7 @@
 package customFunctions.expressions;
 
-import Exceptions.UndefinedSymbolException;
+import exceptions.UndefinedSymbolException;
 
-import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -117,7 +116,7 @@ public class FunctionExpression {
     public boolean isKeyword(String token) {
 
         switch (token) {
-            case "ADD", "SUB", "MUL", "DIV", "MOD", "FUNC", "DEF", "IF", "THEN", "ELSE", "<", ">", "=", "<=", ">=" -> {
+            case "ADD", "SUB", "MUL", "DIV", "MOD", "FUNC", "DEF", "IF", "THEN", "ELSE", "<", ">", "=", "<=", ">=", "!=" -> {
                 return true;
             }
             default -> {

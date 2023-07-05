@@ -145,6 +145,7 @@ public class CallFunction implements FuncInterface{
                 || subString.equalsIgnoreCase("=")
                 || subString.equalsIgnoreCase("<=")
                 || subString.equalsIgnoreCase(">=")
+                || subString.equalsIgnoreCase("!=")
                 || checkNumber(subString)) {
 
             token = subString.toUpperCase();

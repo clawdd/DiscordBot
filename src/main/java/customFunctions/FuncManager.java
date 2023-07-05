@@ -1,29 +1,32 @@
 package customFunctions;
 
-import customFunctions.types.ArithmeticFunction;
-import customFunctions.types.AddFunction;
-import customFunctions.types.CallFunction;
-import customFunctions.types.Condition;
+import customFunctions.types.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Character.isDigit;
 import static secret.BotStrings.BotID;
+import static secret.BotStrings.DisclawdChannel1;
 
 public class FuncManager extends ListenerAdapter {
 
     private final ConcurrentHashMap<String, FuncInterface> functions;
 
+    private final HashSet<String> channelIDs;
+
     public FuncManager() {
 
         this.functions = new ConcurrentHashMap<>();
+        this.channelIDs = new HashSet<>();
+
         functions.put("ADDI", new InfiniteAdditionFunc());
 
         functions.put("ADD", new ArithmeticFunction());
@@ -37,10 +40,19 @@ public class FuncManager extends ListenerAdapter {
         functions.put("CALL", new CallFunction());
 
         functions.put("IF", new Condition());
+
+        channelIDs.add(DisclawdChannel1);
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+
+        String channelID = event.getChannel().getId();
+
+        if (!channelIDs.contains(channelID)) {
+            System.out.println("Not supported channel for Programming");
+            return;
+        }
 
         String msg = event.getMessage().getContentRaw();
         System.out.println("Message received: " + msg);
@@ -48,6 +60,7 @@ public class FuncManager extends ListenerAdapter {
         try {
 
             if (event.getAuthor().getId().equals(BotID)) {
+                System.out.println("Message from bot (ignore) - FuncManager");
                 return;
             }
 
@@ -119,6 +132,7 @@ public class FuncManager extends ListenerAdapter {
                 || subString.equalsIgnoreCase("=")
                 || subString.equalsIgnoreCase("<=")
                 || subString.equalsIgnoreCase(">=")
+                || subString.equalsIgnoreCase("!=")
                 || checkNumber(subString)) {
 
             token = subString.toUpperCase();

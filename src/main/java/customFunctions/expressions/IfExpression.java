@@ -20,6 +20,7 @@ public class IfExpression {
     private final String EQUAL = "=";
     private final String LESSEQUAL = "<=";
     private final String GREATEREQUAL = ">=";
+    private final String NOTEQUAL = "!=";
 
     public IfExpression(List<String> tokenList) {
         this.tokenList = tokenList;
@@ -61,7 +62,7 @@ public class IfExpression {
         for (int i = 1; i < tokenList.size(); i += 2) {
             String operator = tokenList.get(i);
             if (operator.equals(LESS) || operator.equals(GREATER) || operator.equals(EQUAL)
-                    || operator.equals(LESSEQUAL) || operator.equals(GREATEREQUAL)) {
+                    || operator.equals(LESSEQUAL) || operator.equals(GREATEREQUAL) || operator.equals(NOTEQUAL)) {
                 operatorIndex = i;
                 break;
             }
@@ -151,6 +152,13 @@ public class IfExpression {
                     break;
                 case GREATEREQUAL:
                     if (valueLeft >= valueRight) {
+                        result = "True";
+                    } else {
+                        result = "False";
+                    }
+                    break;
+                case NOTEQUAL:
+                    if (valueLeft != valueRight) {
                         result = "True";
                     } else {
                         result = "False";

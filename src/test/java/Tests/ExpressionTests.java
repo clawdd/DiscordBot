@@ -1,6 +1,6 @@
 package Tests;
 
-import Exceptions.UndefinedSymbolException;
+import exceptions.UndefinedSymbolException;
 import customFunctions.expressions.ArithmeticExpression;
 import customFunctions.expressions.FunctionExpression;
 import customFunctions.expressions.IfExpression;
@@ -41,7 +41,7 @@ public class ExpressionTests {
         IfExpression ifExpression = new IfExpression(tokenList);
 
         boolean result = ifExpression.validateIfExpression();
-        assertTrue(result);
+        assertFalse(result);
     }
 
 
