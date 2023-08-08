@@ -1,4 +1,4 @@
-# Discord Bot
+# Discord Bot (Discontinued)
  currentBot version: **Test_4.1** (last larger test push)
 * Newest addition: chat based interpreter / parser for my custom programming language disclawd. 
 For concrete information check under the Heading "Custom Language"
