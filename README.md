@@ -1,10 +1,7 @@
-# Discord Bot (Discontinued)
- currentBot version: **Test_4.1** (last larger test push)
+# Discord Bot
+ currentBot version: **Test_4.1**
 * Newest addition: chat based interpreter / parser for my custom programming language disclawd. 
-For concrete information check under the Heading "Custom Language"
->Disclaimer : This Bot was created with the intention to track my own university assignments and their points. As you see
-> this somehow turned into a whole Project, as learning experience for me. **If** wished I will and can provide you with 
-> the invite link for the Bot. Contact via Discord (Username: kekmax).
+>Disclaimer : This Bot was created with the intention to track my own university assignments.
 
 
 ### Features
@@ -87,23 +84,3 @@ definitions! Example:
   - ``func min a b def if a <= b then a else b``
   - ``func max a b def if a >= b then a else b``
   - ``func iseven a def if mod a 2 = 0 then 1 else 0`` 
-
-***
-
-### Features planed / in work
-
-* [x] Custom language: adding the ``!=`` operator
-* [x] Custom language: adding nested IfExpressions
-* [x] Custom language: adding ``while ... do ... `` loop
-
-
-* [x] study timer
-* [x] group organization
-* [x] fun commands for breaks
-* [x] ! basic math and coding !
-* [ ] use of APIs?
-
-The plan now? Preparing last bits of code for an Alpha release version of the bot and testing, testing and testing features.
-
-> If you got this far and read all these points, feel free to step into contact with me for further details or even feedback 
-> as you like, i´m happy to hear anything.
